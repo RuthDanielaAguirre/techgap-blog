@@ -1,0 +1,70 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techgap-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8080:80"
+    networks:
+      - techgap
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: techgap-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: techgap_blog
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: techgap
+      MYSQL_PASSWORD: secret
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - techgap
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: techgap-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:80"
+    networks:
+      - techgap
+    depends_on:
+      - db
+
+  n8n:
+    image: n8nio/n8n
+    container_name: techgap-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - techgap
+
+networks:
+  techgap:
+    driver: bridge
+
+volumes:
+  dbdata:
+  n8n_data:
