@@ -2,10 +2,10 @@
 
 ## 📖 Sobre el Proyecto
 
-**TechGap Blog** es una plataforma de blog especializada en **Inteligencia Artificial** y **Lenguajes**, diseñada para compartir conocimientos, análisis y las últimas tendencias en estas tecnologías emergentes.
-
 **“El lenguaje cambia cuando cambia el contexto.
 Y la tecnología es el mayor cambio de contexto que hemos vivido.”**
+
+**TechGap Blog** es una plataforma de blog especializada en la **Inteligencia Artificial** y el **Lenguaje**, diseñada para compartir conocimientos, análisis, pensamientos y las últimas tendencias en estas tecnologías emergentes.
 
 ### 🎯 Características Principales
 
