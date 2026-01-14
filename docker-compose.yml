@@ -9,16 +9,26 @@ services:
     volumes:
       - ./:/var/www
     ports:
-      - "8080:80"
+      - "8000:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=techgap_blog
+      - DB_USERNAME=techgap
+      - DB_PASSWORD=secret
+      - APP_ENV=local
+      - APP_KEY=base64:yvyS7gzkGOYsp+9sub9JtmdJ6rhC6Z1S5TGSUnQ+d/8=
     networks:
       - techgap
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: mysql:8.0
     container_name: techgap-db
     restart: unless-stopped
+    command: --skip-ssl
     environment:
       MYSQL_DATABASE: techgap_blog
       MYSQL_ROOT_PASSWORD: root
@@ -30,6 +40,10 @@ services:
       - "3307:3306"
     networks:
       - techgap
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      timeout: 20s
+      retries: 10
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
