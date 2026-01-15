@@ -31,7 +31,7 @@
     </nav>
 
     <!-- Content -->
-    <main class="flex-grow">
+    <main class="grow">
         @yield('content')
     </main>
 
@@ -40,10 +40,10 @@
         <div class="max-w-7xl mx-auto px-6 py-8">
             <div class="grid grid-cols-4 gap-8 text-sm">
                 <div>
-                    <h3 class="font-semibold mb-3">System</h3>
+                    <h3 class="font-semibold mb-3">TechGap</h3>
                     <ul class="space-y-2">
-                        <li><a href="/" class="text-gray-600 hover:text-gray-900">Overview</a></li>
-                        <li><a href="/" class="text-blue-600 hover:text-blue-800">Content Index</a></li>
+                        <li><a href="/" class="text-gray-600 hover:text-gray-900">Home</a></li>
+                        <li><a href="/" class="text-blue-600 hover:text-blue-800">Content</a></li>
                     </ul>
                 </div>
                 <div>
@@ -61,10 +61,10 @@
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold mb-3">Technical</h3>
+                    <h3 class="font-semibold mb-3">Terminos y Condiciones</h3>
                     <ul class="space-y-2">
-                        <li class="text-gray-600">Laravel MVC + Filament</li>
-                        <li class="text-gray-600">Version 1.0.0</li>
+                        <li class="text-gray-600">Terminos</li>
+                        <li class="text-gray-600">Condiciones</li>
                     </ul>
                 </div>
             </div>

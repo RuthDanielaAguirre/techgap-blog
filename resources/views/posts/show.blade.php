@@ -47,9 +47,7 @@
         <!-- Tabs -->
         <div class="flex gap-6 mb-6 border-b border-gray-200">
             <button class="px-4 py-2 border-b-2 border-gray-900 font-semibold">Overview</button>
-            <button class="px-4 py-2 text-gray-600 hover:text-gray-900">WIP</button>
-            <button class="px-4 py-2 text-gray-600 hover:text-gray-900">Revisions</button>
-            <button class="px-4 py-2 text-gray-600 hover:text-gray-900">Architecture</button>
+      
         </div>
 
         <!-- Content Sections -->
@@ -59,13 +57,6 @@
                 <div class="prose max-w-none text-gray-700">
                     {!! nl2br(e($post->content)) !!}
                 </div>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-bold mb-4">System Architecture</h2>
-                <p class="text-gray-700 mb-4">
-                    The content management system follows Laravel MVC principles. Models define database schemas and relationships, controllers handle request/response patterns and data processing, and views render the structured content securely.
-                </p>
             </section>
 
             <section>
