@@ -1,17 +1,34 @@
-# TechGap Blog - Blog de Inteligencia Artificial y Lenguajes de Programación
+# TechGap Blog - Blog de Tecnología y 
 
 ## 📖 Sobre el Proyecto
 
-**TechGap Blog** es una plataforma de blog especializada en **Inteligencia Artificial** y **Lenguajes de Programación**, diseñada para compartir conocimientos, tutoriales, análisis y las últimas tendencias en estas tecnologías emergentes.
+**“El lenguaje cambia cuando cambia el contexto.
+Y la tecnología es el mayor cambio de contexto que hemos vivido.”**
+
+**TechGap Blog** es una plataforma de blog especializada en la **Inteligencia Artificial** y el **Lenguaje**, diseñada para compartir conocimientos, análisis, pensamientos y las últimas tendencias en estas tecnologías emergentes.
 
 ### 🎯 Características Principales
 
-- **Blog de IA:** Artículos sobre Machine Learning, Deep Learning, LLMs, y aplicaciones de IA
-- **Lenguajes de Programación:** Tutoriales, comparativas y guías de diferentes lenguajes
-- **Panel de Administración:** Sistema completo con Filament Admin para gestión de contenido
-- **Categorización:** Organización inteligente de posts por temas y tecnologías
-- **Comentarios:** Sistema de comentarios moderados para interacción con la comunidad
-- **Arquitectura Moderna:** Laravel + Filament + Docker para desarrollo escalable
+**Tecnología desde el lenguaje**
+Artículos que analizan cómo la tecnología (apps, IA, interfaces, plataformas) transforma la forma en que hablamos, escribimos, pensamos y tomamos decisiones.
+
+**Lingüística aplicada al mundo digital**
+Explicación de conceptos lingüísticos (pragmática, semántica, actos de habla, contexto, significado) usando ejemplos reales de tecnología, redes sociales, UX y comunicación digital.
+
+**IA y lenguaje humano**
+Contenido crítico y divulgativo sobre inteligencia artificial desde una perspectiva lingüística: qué significa “entender”, qué hace realmente un modelo de lenguaje y cómo cambia nuestra relación con las palabras.
+
+**Análisis de lenguaje cotidiano y profesional**
+Observación de cómo hablamos en el trabajo, en chats, en interfaces y en plataformas digitales, y qué implicaciones sociales, culturales y emocionales tiene ese lenguaje.
+
+**Categorización por temas y fenómenos lingüísticos**
+Organización de los artículos por conceptos (lenguaje digital, IA, UX, mutaciones del lenguaje, poder y discurso), no solo por tecnología o herramienta.
+
+**Espacio de reflexión y diálogo**
+Sistema de comentarios moderados para fomentar conversaciones cuidadas, críticas y respetuosas sobre lenguaje, tecnología y sociedad.
+
+**Arquitectura moderna y sostenible**
+Plataforma construida con Laravel, Filament y Docker, pensada para crecer de forma ordenada, mantener el contenido a largo plazo y facilitar la gestión editorial.
 
 ### 🛠️ Stack Tecnológico
 
