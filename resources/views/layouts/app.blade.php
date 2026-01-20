@@ -13,7 +13,6 @@
             <div class="flex items-center space-x-8">
                 <a href="/" class="text-xl font-bold">TECHGAP_BLOG</a>
                 <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
-                <a href="/" class="text-gray-600 hover:text-gray-900">Content</a>
             </div>
             <div class="flex items-center space-x-6">
                 @guest

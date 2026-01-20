@@ -1,0 +1,25 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#6949
+    [34mall[39m: [
+      [34;4mApp\Models\User[39;24m {#6934
+        [34mid[39m: [35m2[39m,
+        [34mname[39m: "[32mTest User[39m",
+        [34memail[39m: "[32mtest@test.com[39m",
+        [34memail_verified_at[39m: "[32m2026-01-15 17:14:27[39m",
+        #[33mpassword[39m: "[32m$2y$12$0Dm7OH9emADvfqRUN4bAEOCEKs6RnGh0PHJDBmr/7OL.EdPBoAUxS[39m",
+        #[33mremember_token[39m: "[32mfoH1a3ehAE[39m",
+        [34mcreated_at[39m: "[32m2026-01-15 17:14:27[39m",
+        [34mupdated_at[39m: "[32m2026-01-15 17:14:27[39m",
+      },
+      [34;4mApp\Models\User[39;24m {#7383
+        [34mid[39m: [35m1[39m,
+        [34mname[39m: "[32mAdmin User[39m",
+        [34memail[39m: "[32madmin@techgap.com[39m",
+        [34memail_verified_at[39m: "[32m2026-01-15 17:14:26[39m",
+        #[33mpassword[39m: "[32m$2y$12$txzBTtS0jVPgEYRuDz4q3uFwlLHdc651fZQMZq4ppdXRLXVpvf8gy[39m",
+        #[33mremember_token[39m: "[32mRSuFd7PDqy[39m",
+        [34mcreated_at[39m: "[32m2026-01-15 17:14:26[39m",
+        [34mupdated_at[39m: "[32m2026-01-15 17:14:26[39m",
+      },
+    ],
+  }
+

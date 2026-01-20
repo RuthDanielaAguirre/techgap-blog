@@ -13,7 +13,7 @@
             <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-600 text-sm">
                 <ul class="list-disc list-inside">
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                    <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -24,72 +24,71 @@
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Full Name</label>
-                    <input 
-                        type="text" 
-                        name="name" 
+                    <input
+                        type="text"
+                        name="name"
                         value="{{ old('name') }}"
                         placeholder="John Doe"
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Email Address</label>
-                    <input 
-                        type="email" 
-                        name="email" 
+                    <input
+                        type="email"
+                        name="email"
                         value="{{ old('email') }}"
                         placeholder="user@example.com"
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block text-sm font-medium mb-2">Password</label>
-                        <input 
-                            type="password" 
-                            name="password" 
+                        <input
+                            type="password"
+                            name="password"
                             placeholder="Min. 8 characters"
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-2">Confirm Password</label>
-                        <input 
-                            type="password" 
-                            name="password_confirmation" 
+                        <input
+                            type="password"
+                            name="password_confirmation"
                             placeholder="Re-enter password"
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
 
                 <div class="mb-6">
                     <label class="block text-sm font-medium mb-2">Account Type</label>
-                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option>Subscriber</option>
-                        <option>Writer</option>
+                    <select name="account_type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="subscriber" {{ old('account_type') === 'subscriber' ? 'selected' : '' }}>Subscriber</option>
+                        <option value="writer" {{ old('account_type') === 'writer' ? 'selected' : '' }}>Writer</option>
                     </select>
                 </div>
 
+                <p class="mt-2 text-xs text-gray-500">
+                    Writer requiere aprobación para publicar.
+                </p>
+
                 <div class="mb-6">
                     <label class="flex items-start">
-                        <input type="checkbox" required class="mr-2 mt-1">
+                        <input type="checkbox" name="terms" required class="mr-2 mt-1">
                         <span class="text-sm text-gray-600">
                             I agree to the terms of service and privacy policy. This system is for authorized use only.
                         </span>
                     </label>
                 </div>
 
-                <button 
+                <button
                     type="submit"
-                    class="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition font-medium"
-                >
+                    class="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition font-medium">
                     Create Account
                 </button>
             </form>
