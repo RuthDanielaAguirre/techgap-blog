@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 // Públicas
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
+Route::get('/post/{slug}', [PostController::class, 'show'])->name('blog.show');
 
 // Auth
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

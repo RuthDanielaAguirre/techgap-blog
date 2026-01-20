@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PostController extends Controller
 {
     public function index()
     {
+        $categories = Category::orderBy('name')->get();
+
         $posts = Post::with(['user', 'category'])
             ->whereNotNull('published_at')
             ->latest('published_at')
             ->paginate(10);
 
-            return view('posts.index', compact('posts'));
+            return view('pages.blogView.index', compact('posts', 'categories'));
     }
 
 
@@ -25,6 +27,6 @@ class PostController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        return view('posts.show', compact('post'));
+        return view('pages.blogView.show', compact('post'));
     }
 }
