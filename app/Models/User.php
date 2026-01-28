@@ -2,51 +2,99 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'account_type',
-        'writer_status',
-        'writer_requested_at',
-        'is_admin',
+        'role_id',
+        'avatar',
+        'bio',
+        'website',
+        'is_active',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_active' => 'boolean',
+    ];
+
+    // Relaciones
+    public function role(): BelongsTo
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsTo(Role::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    // Métodos helper
+    public function isAdmin(): bool
+    {
+        return $this->role->name === 'admin';
+    }
+
+    public function isWriter(): bool
+    {
+        return $this->role->name === 'writer';
+    }
+
+    public function isSubscriber(): bool
+    {
+        return $this->role->name === 'subscriber';
+    }
+
+    public function canCreatePosts(): bool
+    {
+        return $this->isAdmin() || $this->isWriter();
+    }
+
+    public function canManagePosts(): bool
+    {
+        return $this->isAdmin();
+    }
+
+    // Filament
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->isAdmin() || $this->isWriter();
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeWriters($query)
+    {
+        return $query->whereHas('role', function ($q) {
+            $q->where('name', 'writer');
+        });
     }
 }

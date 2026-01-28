@@ -15,9 +15,26 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostResource extends Resource
-{
+{   
+    protected static function currentUser()
+    {
+        return auth()->user();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return static::currentUser()?->isAdmin() ? 'Posts' : 'Mis Posts';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return static::currentUser()?->isAdmin() ? 'Post' : 'Mi Post';
+    }
+
     protected static ?string $model = Post::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -54,5 +71,13 @@ class PostResource extends Resource
             'view' => ViewPost::route('/{record}'),
             'edit' => EditPost::route('/{record}/edit'),
         ];
+    }
+
+    public static function getRecordRouteBindingEloquentQuery(): Builder
+    {
+        return parent::getRecordRouteBindingEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
