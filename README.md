@@ -188,6 +188,63 @@ docker exec -it techgap-db mysql -u techgap -psecret techgap_blog
 mysql -h 127.0.0.1 -P 3307 -u techgap -psecret techgap_blog
 ```
 
+
+## 🔗 URLs de Acceso
+
+| Servicio | URL | Credenciales |
+|----------|-----|--------------|
+| **Laravel App** | http://localhost:8000 | - |
+| **phpMyAdmin** | http://localhost:8081 | Usuario: `techgap` / Pass: `secret` |
+| **n8n (Automatización)** | http://localhost:5678 | Usuario: `admin` / Pass: `admin` |
+
+## 🛠️ Comandos Útiles
+
+### Gestión de Contenedores
+
+```bash
+# Ver contenedores en ejecución
+docker-compose ps
+
+# Ver logs
+docker logs techgap-app
+docker logs techgap-db
+
+# Entrar a un contenedor
+docker exec -it techgap-app bash
+docker exec -it techgap-db bash
+
+# Reiniciar un servicio
+docker-compose restart app
+
+# Parar todos los servicios
+docker-compose down
+
+# Parar y eliminar volúmenes (CUIDADO: elimina la base de datos)
+docker-compose down --volumes
+```
+
+### Laravel Artisan
+
+```bash
+# Limpiar caches
+docker exec -it techgap-app php artisan cache:clear
+docker exec -it techgap-app php artisan config:clear
+docker exec -it techgap-app php artisan view:clear
+
+# Generar clave de aplicación
+docker exec -it techgap-app php artisan key:generate
+
+# Ver rutas
+docker exec -it techgap-app php artisan route:list
+
+# Crear nueva migración
+docker exec -it techgap-app php artisan make:migration create_ejemplo_table
+
+# Crear nuevo modelo
+docker exec -it techgap-app php artisan make:model Ejemplo
+```
+
+
 ## 🚨 Solución de Problemas
 
 ### Problema: "Empty reply from server" 
