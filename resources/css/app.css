@@ -9,3 +9,77 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Sistema de colores dinámicos para categorías y tags */
+:root {
+    --dynamic-color: #6366f1; /* Color por defecto */
+}
+
+/* Clases utilitarias para colores dinámicos */
+.category-bg {
+    background-color: rgb(from var(--dynamic-color) r g b / 0.08);
+}
+
+.category-text {
+    color: var(--dynamic-color);
+}
+
+.category-bg-text {
+    background-color: rgb(from var(--dynamic-color) r g b / 0.08);
+    color: var(--dynamic-color);
+}
+
+.tag-bg {
+    background-color: rgb(from var(--dynamic-color) r g b / 0.1);
+}
+
+.tag-text {
+    color: var(--dynamic-color);
+}
+
+.tag-bg-text {
+    background-color: rgb(from var(--dynamic-color) r g b / 0.1);
+    color: var(--dynamic-color);
+}
+
+/* Fallback para navegadores que no soporten 'rgb from' */
+@supports not (color: rgb(from white r g b)) {
+    .category-bg {
+        background-color: color-mix(in srgb, var(--dynamic-color) 8%, transparent);
+    }
+    
+    .category-bg-text {
+        background-color: color-mix(in srgb, var(--dynamic-color) 8%, transparent);
+        color: var(--dynamic-color);
+    }
+    
+    .tag-bg {
+        background-color: color-mix(in srgb, var(--dynamic-color) 10%, transparent);
+    }
+    
+    .tag-bg-text {
+        background-color: color-mix(in srgb, var(--dynamic-color) 10%, transparent);
+        color: var(--dynamic-color);
+    }
+}
+
+/* Fallback final para navegadores muy antiguos */
+@supports not (color: color-mix(in srgb, red, blue)) {
+    .category-bg {
+        background-color: rgba(99, 102, 241, 0.08);
+    }
+    
+    .category-bg-text {
+        background-color: rgba(99, 102, 241, 0.08);
+        color: #6366f1;
+    }
+    
+    .tag-bg {
+        background-color: rgba(99, 102, 241, 0.1);
+    }
+    
+    .tag-bg-text {
+        background-color: rgba(99, 102, 241, 0.1);
+        color: #6366f1;
+    }
+}

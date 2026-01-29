@@ -34,11 +34,21 @@ class HomeController extends Controller
             }])
             ->get();
 
-        return view('home', compact(
+        return view('pages.blogView.home', compact(
             'featuredPosts',
             'latestPosts',
             'popularPosts',
             'categories'
         ));
+    }
+
+    public function contact()
+    {
+        return view('pages.blogView.contact');
+    }
+
+    public function about()
+    {
+        return view('pages.blogView.about');
     }
 }

@@ -98,8 +98,8 @@
                     <div class="flex flex-wrap gap-2">
                         @foreach($popularTags as $tag)
                             <a href="{{ route('posts.tag', $tag->slug) }}" 
-                               class="px-3 py-1.5 text-xs font-semibold rounded-lg hover:shadow-md transition transform hover:-translate-y-0.5"
-                               style="background-color: {{ $tag->color }}20; color: {{ $tag->color }};">
+                               class="px-3 py-1.5 text-xs font-semibold rounded-lg hover:shadow-md transition transform hover:-translate-y-0.5 tag-bg-text"
+                               style="--dynamic-color: {{ $tag->color }}">
                                 #{{ $tag->name }}
                             </a>
                         @endforeach
@@ -170,8 +170,8 @@
                                 <!-- Category Badge -->
                                 <div class="absolute top-4 left-4">
                                     <a href="{{ route('posts.category', $post->category->slug) }}"
-                                       class="px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg backdrop-blur-md hover:scale-105 transition"
-                                       style="background-color: {{ $post->category->color }}dd;">
+                                       class="px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg backdrop-blur-md hover:scale-105 transition category-bg"
+                                       style="--dynamic-color: {{ $post->category->color }}">
                                         {{ $post->category->icon }} {{ $post->category->name }}
                                     </a>
                                 </div>
@@ -201,8 +201,8 @@
                                 <div class="flex flex-wrap gap-2 mb-4">
                                     @foreach($post->tags->take(3) as $tag)
                                         <a href="{{ route('posts.tag', $tag->slug) }}"
-                                           class="px-2.5 py-1 text-xs font-semibold rounded-lg hover:shadow-md transition"
-                                           style="background-color: {{ $tag->color }}15; color: {{ $tag->color }};">
+                                           class="px-2.5 py-1 text-xs font-semibold rounded-lg hover:shadow-md transition tag-bg-text"
+                                           style="--dynamic-color: {{ $tag->color }}">
                                             #{{ $tag->name }}
                                         </a>
                                     @endforeach
