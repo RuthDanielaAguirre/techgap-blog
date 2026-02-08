@@ -43,11 +43,17 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * @return HasMany<Post>
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * @return HasMany<Comment>
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
@@ -56,17 +62,17 @@ class User extends Authenticatable implements FilamentUser
     // Métodos helper
     public function isAdmin(): bool
     {
-        return $this->role->name === 'admin';
+        return $this->role && $this->role->name === 'admin';
     }
 
     public function isWriter(): bool
     {
-        return $this->role->name === 'writer';
+        return $this->role && $this->role->name === 'writer';
     }
 
     public function isSubscriber(): bool
     {
-        return $this->role->name === 'subscriber';
+        return $this->role && $this->role->name === 'subscriber';
     }
 
     public function canCreatePosts(): bool

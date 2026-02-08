@@ -30,6 +30,10 @@ class RegisterController extends Controller
 
         // Obtener el rol de subscriber
         $subscriberRole = Role::where('name', 'subscriber')->first();
+        
+        if (!$subscriberRole) {
+            return back()->with('error', 'Error en la configuración del sistema. Por favor contacte al administrador.');
+        }
 
         $user = User::create([
             'name' => $validated['name'],
