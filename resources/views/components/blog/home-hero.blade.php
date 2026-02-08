@@ -12,12 +12,14 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{{ route('posts.index') }}" class="bg-white text-techgap-700 px-8 py-4 rounded-lg font-semibold
-                        hover:bg-gray-100 transition shadow-lg hover:shadow-xl border border-white/40">
-                    Ver Artículos
+                        hover:bg-gray-100 transition shadow-lg hover:shadow-xl border border-white/40 flex items-center justify-center space-x-2">
+                    <i class="ph ph-article text-lg"></i>
+                    <span>Ver Artículos</span>
                 </a>
                 <a href="{{ route('register') }}" class="bg-techgap-800 text-white px-8 py-4 rounded-lg font-semibold
-                        hover:bg-techgap-900 transition shadow-lg hover:shadow-xl border border-techgap-600">
-                    Únete Gratis
+                        hover:bg-techgap-900 transition shadow-lg hover:shadow-xl border border-techgap-600 flex items-center justify-center space-x-2">
+                    <i class="ph ph-rocket-launch text-lg"></i>
+                    <span>Únete Gratis</span>
                 </a>
             </div>
         </div>

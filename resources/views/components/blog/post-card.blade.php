@@ -52,7 +52,7 @@ $variants = [
     <div class="flex items-center space-x-4 text-xs text-gray-500">
       @if(isset($post->views_count))
         <span class="flex items-center">
-          <x-ui.icon name="eye" class="w-3 h-3 mr-1" />
+          <x-ui.icon name="eye" class="text-xs mr-1" />
           {{ number_format($post->views_count) }}
         </span>
       @endif
