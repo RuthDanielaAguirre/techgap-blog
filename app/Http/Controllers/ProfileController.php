@@ -27,7 +27,7 @@ class ProfileController extends Controller
             'total_likes' => $user->posts()->sum('likes_count') ?? 0,
         ];
 
-        return view('pages.profile.show', compact('user', 'stats'));
+        return view('v2.profile.show', compact('user', 'stats'));
     }
 
     public function edit()

@@ -11,7 +11,8 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('v2.auth.login');
+        // return view('auth.login');
     }
 
     public function login(Request $request)
@@ -30,7 +31,7 @@ class LoginController extends Controller
 
             // Redirigir según el rol
             if ($user->isAdmin() || $user->isWriter()) {
-                return redirect()->intended('/admin');
+                return redirect()->intended('/dashboard');
             }
 
             return redirect()->intended('/');

@@ -25,7 +25,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('dashboard')
             ->login()
             ->colors([
                 'primary' => Color::hex('#0ea5e9'), // TechGap color
@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Amber,
             ])
             ->brandName('TechGap Admin')
-            ->brandLogo(asset('images/logo.svg'))
+            ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

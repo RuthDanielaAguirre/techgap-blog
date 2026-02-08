@@ -53,7 +53,8 @@ class PostController extends Controller
             ->take(15)
             ->get();
 
-        return view('pages.blogView.posts.index', compact('posts', 'categories', 'popularTags'));
+        return view('v2.blog.posts.index', compact('posts', 'categories', 'popularTags'));
+        // return view('pages.blogView.posts.index', compact('posts', 'categories', 'popularTags'));
     }
 
     public function show(Post $post)
