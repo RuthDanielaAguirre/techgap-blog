@@ -43,11 +43,17 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * @return HasMany<Post>
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * @return HasMany<Comment>
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);

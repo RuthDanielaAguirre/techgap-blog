@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
@@ -15,14 +17,14 @@ class ProfileController extends Controller
 
     public function show()
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         
-        // Estadísticas del usuario
         $stats = [
             'posts_count' => $user->posts()->count(),
             'comments_count' => $user->comments()->count(),
-            'total_views' => $user->posts()->sum('views_count'),
-            'total_likes' => $user->posts()->sum('likes_count'),
+            'total_views' => $user->posts()->sum('views_count') ?? 0,
+            'total_likes' => $user->posts()->sum('likes_count') ?? 0,
         ];
 
         return view('pages.profile.show', compact('user', 'stats'));
@@ -30,13 +32,15 @@ class ProfileController extends Controller
 
     public function edit()
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         return view('pages.profile.edit', compact('user'));
     }
 
     public function update(Request $request)
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
@@ -49,8 +53,8 @@ class ProfileController extends Controller
         // Procesar avatar si se subió
         if ($request->hasFile('avatar')) {
             // Eliminar avatar anterior si existe
-            if ($user->avatar && \Storage::disk('public')->exists($user->avatar)) {
-                \Storage::disk('public')->delete($user->avatar);
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
             }
 
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
@@ -69,7 +73,8 @@ class ProfileController extends Controller
             'password' => ['required', 'confirmed', Password::min(8)->letters()->numbers()],
         ]);
 
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         $user->update([
             'password' => Hash::make($validated['password'])
         ]);
@@ -83,15 +88,16 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         
         // Eliminar avatar si existe
-        if ($user->avatar && \Storage::disk('public')->exists($user->avatar)) {
-            \Storage::disk('public')->delete($user->avatar);
+        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+            Storage::disk('public')->delete($user->avatar);
         }
 
         // Logout
-        auth()->logout();
+        Auth::logout();
 
         // Soft delete
         $user->delete();
