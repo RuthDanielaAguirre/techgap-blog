@@ -45,17 +45,19 @@
                             <div class="w-10 h-10 bg-gradient-to-br from-techgap-400 to-techgap-600 rounded-full flex items-center justify-center text-white font-semibold">
                                 {{ substr(auth()->user()->name, 0, 1) }}
                             </div>
-                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                            <i class="ph ph-caret-down text-gray-600"></i>
                         </button>
                         
                         <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50" x-transition>
-                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Perfil</a>
+                            <a href="#" class="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="ph ph-user text-gray-500"></i>
+                                <span>Perfil</span>
+                            </a>
                             <form method="POST" action="{{ route('logout') }}" class="block">
                                 @csrf
-                                <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                    Cerrar Sesión
+                                <button type="submit" class="w-full flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    <i class="ph ph-sign-out text-gray-500"></i>
+                                    <span>Cerrar Sesión</span>
                                 </button>
                             </form>
                         </div>
@@ -66,9 +68,7 @@
             <!-- Mobile menu button -->
             <div class="md:hidden">
                 <button @click="open = !open" type="button" class="bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-techgap-500">
-                    <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
+                    <i class="ph ph-list text-2xl"></i>
                 </button>
             </div>
         </div>
