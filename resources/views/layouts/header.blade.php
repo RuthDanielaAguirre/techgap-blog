@@ -121,8 +121,8 @@
 
                             @php
                                 $roles = [
-                                    1 => 'Admin',
-                                    2 => 'Writer',
+                                    1 => 'Administrador',
+                                    2 => 'Escritor',
                                     3 => 'Suscriptor',
                                 ];
                             @endphp
@@ -163,7 +163,7 @@
 
                             @if(auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
                                 <a 
-                                    href="{{ route('logout') }}"
+                                    href="{{ filament()->getUrl() }}"
                                     class="block px-4 py-2 text-sm transition"
                                     :class="initialTransparent && !scrolled
                                         ? 'text-gray-300 hover:bg-white/10'

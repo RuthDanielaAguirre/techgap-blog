@@ -53,8 +53,7 @@ class PostController extends Controller
             ->take(15)
             ->get();
 
-        return view('v2.blog.posts.index', compact('posts', 'categories', 'popularTags'));
-        // return view('pages.blogView.posts.index', compact('posts', 'categories', 'popularTags'));
+        return view('posts.index', compact('posts', 'categories', 'popularTags'));
     }
 
     public function show(Post $post)
@@ -94,7 +93,7 @@ class PostController extends Controller
             ->limit(3)
             ->get();
 
-        return view('pages.blogView.posts.show', compact('post', 'relatedPosts'));
+        return view('posts.show', compact('post', 'relatedPosts'));
     }
 
     public function byCategory(Category $category)
@@ -105,7 +104,7 @@ class PostController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        return view('pages.blogView.posts.category', compact('category', 'posts'));
+        return view('posts.category', compact('category', 'posts'));
     }
 
     public function byTag(Tag $tag)
@@ -116,6 +115,6 @@ class PostController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        return view('pages.blogView.posts.tag', compact('tag', 'posts'));
+        return view('posts.tag', compact('tag', 'posts'));
     }
 }

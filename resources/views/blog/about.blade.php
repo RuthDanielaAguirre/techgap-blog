@@ -1,4 +1,4 @@
-@extends('v2.layouts.app', ['transparentHeader' => true])
+@extends('layouts.app', ['transparentHeader' => true])
 
 @section('content')
 

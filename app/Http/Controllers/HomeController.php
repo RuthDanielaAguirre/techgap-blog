@@ -35,7 +35,7 @@ class HomeController extends Controller
             }])
             ->get();
 
-        return view('v2.blog.home', compact(
+        return view('blog.home', compact(
             'featuredPosts',
             'latestPosts',
             'popularPosts',
@@ -52,13 +52,13 @@ class HomeController extends Controller
 
     public function contact()
     {
-        return view('v2.blog.contact4');
+        return view('blog.contact');
         // return view('pages.blogView.contact');
     }
 
     public function about()
     {
-        return view('v2.blog.about');
+        return view('blog.about');
         // return view('pages.blogView.about');
     }
 }

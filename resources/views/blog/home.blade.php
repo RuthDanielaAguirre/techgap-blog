@@ -1,10 +1,8 @@
-@extends('v2.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 
-{{-- =========================
-    HERO
-========================= --}}
+{{-- Hero --}}
 <section style="background: linear-gradient(180deg, #0F172A, #020617);" class="py-32">
 
     <canvas id="hero-canvas" class="absolute inset-0 w-full h-full"></canvas>
@@ -109,9 +107,7 @@
     draw();
 </script>
 
-{{-- =========================
-    CATEGORÍAS
-========================= --}}
+{{-- Categorias --}}
 <section style="background:#020617;" class="pt-0 pb-32">
     <div class="max-w-7xl mx-auto px-6">
 
@@ -157,13 +153,7 @@
     </div>
 </section>
 
-
-
-
-
-{{-- =========================
-    POSTS DESTACADOS
-========================= --}}
+{{-- Post destacados --}}
 @if($featuredPosts->isNotEmpty())
 <section style="background:#F8FAFC">
     <div class="max-w-7xl mx-auto px-6 py-24">
@@ -207,9 +197,7 @@
 </section>
 @endif
 
-{{-- =========================
-    ÚLTIMOS + SIDEBAR
-========================= --}}
+{{-- Latest & Sidebar --}}
 <section style="background:#FFFFFF">
     <div class="max-w-7xl mx-auto px-6 py-24">
         <div class="grid lg:grid-cols-3 gap-12">
@@ -231,7 +219,9 @@
                             </span>
 
                             <h4 class="text-base font-semibold mt-2 mb-2 text-[#020617]">
-                                {{ $post->title }}
+                                <a href="{{ route('posts.show', $post->slug) }}" class="transition-opacity duration-200 group-hover:opacity-80">
+                                    {{ $post->title }}
+                                </a>
                             </h4>
 
                             <p class="text-sm text-gray-600 mb-4">
@@ -244,10 +234,6 @@
                         </article>
                     @endforeach
                 </div>
-
-                {{-- <div class="mt-12">
-                    {{ $latestPosts->links() }}
-                </div> --}}
             </div>
 
             {{-- Sidebar --}}
@@ -260,7 +246,7 @@
                     <ul class="space-y-4">
                         @foreach($popularPosts as $post)
                             <li>
-                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-[#1BBF9B]">
+                                <a href="{{ route('posts.show', $post->slug) }}" class="text-sm font-medium text-gray-700 hover:text-[#1BBF9B] transition-opacity duration-200 group-hover:opacity-80">
                                     {{ $post->title }}
                                 </a>
                                 <div class="text-xs text-gray-500">
@@ -276,9 +262,7 @@
     </div>
 </section>
 
-{{-- =========================
-    CTA ESCRITOR (Dark Premium)
-========================= --}}
+{{-- CTA --}}
 <section style="background:#0F172A" class="py-20">
     <div class="max-w-4xl mx-auto px-6">
 

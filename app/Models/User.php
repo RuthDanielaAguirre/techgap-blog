@@ -17,6 +17,7 @@ class User extends Authenticatable implements FilamentUser
 
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'role_id',
@@ -102,5 +103,10 @@ class User extends Authenticatable implements FilamentUser
         return $query->whereHas('role', function ($q) {
             $q->where('name', 'writer');
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

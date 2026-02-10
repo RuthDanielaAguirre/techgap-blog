@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 // Home
@@ -33,9 +34,10 @@ Route::get('/tag/{tag:slug}', [PostController::class, 'byTag'])->name('posts.tag
 Route::middleware('auth')->group(function () {
     Route::post('/post/{post}/comment', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::put('/comments/{comment}', [CommentController::class, 'update']) ->name('comments.update');
 });
 
-// Profile Routes
+// Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -44,3 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
 });
 
+// Author
+Route::get('/author/{user:username}', [AuthorController::class, 'show'])->name('author.show');
+
+// Dashboard (Filament)
+// Route::get('/dashboard')->name('dashboard');

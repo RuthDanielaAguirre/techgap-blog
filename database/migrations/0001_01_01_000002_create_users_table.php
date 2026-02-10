@@ -10,19 +10,30 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // Identidad pública
             $table->string('name', 100);
+            $table->string('username', 100)->unique();
+
+            // Autenticación
             $table->string('email', 120)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // Rol y estado
             $table->foreignId('role_id')->default(3)->constrained('roles')->onDelete('restrict');
+            $table->boolean('is_active')->default(true);
+
+            // Perfil público
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
             $table->string('website')->nullable();
-            $table->boolean('is_active')->default(true);
+
+            // Tokens y timestamps
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            
+
             // Índices
             $table->index('role_id');
             $table->index('is_active');

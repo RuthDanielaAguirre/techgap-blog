@@ -1,49 +1,29 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin
-        User::create([
-            'name' => 'Admin TechGap',
+        // Admin principal
+        User::factory()->admin()->create([
+            'name' => 'TechGap Admin',
             'email' => 'admin@techgap.com',
             'password' => Hash::make('Admin123!'),
-            'role_id' => 1, // admin
-            'bio' => 'Administrador principal del blog TechGap',
-            'is_active' => true,
-            'email_verified_at' => now(),
+            'username' => 'techgap-admin',
+            'bio' => 'Administrador del proyecto TechGap. Amante del lenguaje técnico y la etimología del código.',
+            'website' => 'https://techgap.com',
+            'avatar' => null,
         ]);
 
-        // Writer
-        User::create([
-            'name' => 'Carlos Méndez',
-            'email' => 'carlos@techgap.com',
-            'password' => Hash::make('Writer123!'),
-            'role_id' => 2, // writer
-            'bio' => 'Desarrollador full-stack apasionado por compartir conocimiento',
-            'website' => 'https://carlosmendez.dev',
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
+        // Escritores
+        User::factory()->writer()->count(2)->create();
 
-        User::create([
-            'name' => 'Laura Torres',
-            'email' => 'laura@techgap.com',
-            'password' => Hash::make('Writer123!'),
-            'role_id' => 2, // writer
-            'bio' => 'Experta en DevOps y arquitectura cloud',
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
-
-        // Subscribers
-        User::factory()->count(10)->create();
+        // Suscriptores
+        User::factory()->subscriber()->count(5)->create();
     }
 }
