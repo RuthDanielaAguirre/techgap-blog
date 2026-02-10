@@ -70,6 +70,11 @@
                 @endforeach
             </div>
 
+            {{-- RAG SEARCH --}}
+            <div class="hidden lg:block flex-1 max-w-md mx-8">
+                <x-rag-search />
+            </div>
+
             {{-- AUTH --}}
             <div class="hidden md:flex items-center space-x-4">
 

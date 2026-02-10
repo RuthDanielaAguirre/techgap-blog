@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Services\RAGService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -80,18 +81,9 @@ class PostController extends Controller
             }
         ]);
 
-        // Posts relacionados
-        $relatedPosts = Post::published()
-            ->where('id', '!=', $post->id)
-            ->where(function ($query) use ($post) {
-                $query->where('category_id', $post->category_id)
-                    ->orWhereHas('tags', function ($q) use ($post) {
-                        $q->whereIn('tags.id', $post->tags->pluck('id'));
-                    });
-            })
-            ->with(['user', 'category'])
-            ->limit(3)
-            ->get();
+        // Posts relacionados usando RAG (Retrieval-Augmented Generation)
+        $ragService = app(RAGService::class);
+        $relatedPosts = $ragService->getRelatedPosts($post, 3);
 
         return view('posts.show', compact('post', 'relatedPosts'));
     }

@@ -49,5 +49,13 @@ Route::middleware('auth')->group(function () {
 // Author
 Route::get('/author/{user:username}', [AuthorController::class, 'show'])->name('author.show');
 
+// RAG (Retrieval-Augmented Generation) Routes
+Route::prefix('api/rag')->name('rag.')->group(function () {
+    Route::get('/posts/{post}/related', [App\Http\Controllers\RAGController::class, 'getRelatedPosts'])
+        ->name('posts.related');
+    Route::get('/search', [App\Http\Controllers\RAGController::class, 'searchPosts'])
+        ->name('search');
+});
+
 // Dashboard (Filament)
 // Route::get('/dashboard')->name('dashboard');
