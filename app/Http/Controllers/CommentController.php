@@ -13,24 +13,48 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
+    // public function store(Request $request, Post $post)
+    // {
+    //     $validated = $request->validate([
+    //         'content' => ['required', 'string', 'max:2000'],
+    //         'parent_id' => ['nullable', 'exists:comments,id'],
+    //     ]);
+
+    //     $comment = $post->comments()->create([
+    //         'user_id' => auth()->id(),
+    //         'parent_id' => $validated['parent_id'] ?? null,
+    //         'content' => $validated['content'],
+    //         'is_approved' => true,
+    //     ]);
+
+    //     // Incrementar contador
+    //     $post->increment('comments_count');
+
+    //     return back()->with('success', 'Comentario publicado correctamente.');
+    // }
+
     public function store(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'content' => ['required', 'string', 'max:2000'],
-            'parent_id' => ['nullable', 'exists:comments,id'],
+            'content' => ['required', 'string', 'min:1', 'max:2000'],
         ]);
 
         $comment = $post->comments()->create([
             'user_id' => auth()->id(),
-            'parent_id' => $validated['parent_id'] ?? null,
             'content' => $validated['content'],
-            'is_approved' => true,
+            'is_approved' => true, // Auto-aprobar comentarios
         ]);
 
         // Incrementar contador
         $post->increment('comments_count');
 
-        return back()->with('success', 'Comentario publicado correctamente.');
+        // Verificar milestones
+        $post->fresh()->checkMilestones();
+
+        // Enviar webhook
+        app(\App\Services\WebhookService::class)->commentCreated($comment);
+
+        return back()->with('success', '¡Comentario publicado correctamente!');
     }
 
     public function update(Request $request, Comment $comment)

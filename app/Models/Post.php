@@ -156,4 +156,138 @@ class Post extends Model
     {
         return 'slug';
     }
+
+    // Relaciones de Likes
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function likedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
+    // Relaciones de Bookmarks
+    public function bookmarks(): HasMany
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function bookmarkedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')->withTimestamps();
+    }
+
+    // Relaciones de Views
+    public function views(): HasMany
+    {
+        return $this->hasMany(PostView::class);
+    }
+
+    // Scopes adicionales
+    public function scopeMostLiked($query, $limit = 10)
+    {
+        return $query->orderBy('likes_count', 'desc')->limit($limit);
+    }
+
+    public function scopeMostViewed($query, $limit = 10)
+    {
+        return $query->orderBy('views_count', 'desc')->limit($limit);
+    }
+
+    public function scopeTrending($query, $limit = 10)
+    {
+        // Posts con más likes en los últimos 7 días
+        return $query->where('published_at', '>', now()->subDays(7))
+            ->orderBy('likes_count', 'desc')
+            ->limit($limit);
+    }
+
+    // Métodos útiles
+    public function isLikedBy(?User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
+
+    public function isBookmarkedBy(?User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+        return $this->bookmarks()->where('user_id', $user->id)->exists();
+    }
+
+    public function recordView($userId = null): void
+    {
+        PostView::recordView($this, $userId);
+    }
+
+    // Verificar si alcanzó un milestone
+    public function checkMilestones(): void
+    {
+        $milestones = [
+            ['type' => 'likes', 'threshold' => 10, 'message' => '¡Tu post alcanzó 10 likes!'],
+            ['type' => 'likes', 'threshold' => 50, 'message' => '¡Tu post alcanzó 50 likes!'],
+            ['type' => 'likes', 'threshold' => 100, 'message' => '¡Tu post alcanzó 100 likes!'],
+            ['type' => 'comments', 'threshold' => 5, 'message' => '¡Tu post tiene 5 comentarios!'],
+            ['type' => 'comments', 'threshold' => 20, 'message' => '¡Tu post tiene 20 comentarios!'],
+            ['type' => 'views', 'threshold' => 100, 'message' => '¡Tu post alcanzó 100 vistas!'],
+            ['type' => 'views', 'threshold' => 500, 'message' => '¡Tu post alcanzó 500 vistas!'],
+            ['type' => 'views', 'threshold' => 1000, 'message' => '¡Tu post alcanzó 1000 vistas!'],
+        ];
+
+        foreach ($milestones as $milestone) {
+            $count = match($milestone['type']) {
+                'likes' => $this->likes_count,
+                'comments' => $this->comments_count,
+                'views' => $this->views_count,
+            };
+
+            // Si justo alcanzó el milestone (evitar múltiples notificaciones)
+            if ($count === $milestone['threshold']) {
+                $this->notifyMilestone($milestone['message']);
+            }
+        }
+    }
+
+    protected function notifyMilestone(string $message): void
+    {
+        Notification::create([
+            'user_id' => $this->user_id,
+            'type' => 'post_milestone',
+            'title' => '¡Nuevo hito alcanzado!',
+            'message' => $message,
+            'data' => [
+                'post_id' => $this->id,
+                'post_title' => $this->title,
+                'post_slug' => $this->slug,
+            ],
+        ]);
+
+        // Aquí también se puede disparar el webhook a n8n
+        $this->sendMilestoneWebhook($message);
+    }
+
+    protected function sendMilestoneWebhook(string $message): void
+    {
+        $webhookService = app(\App\Services\WebhookService::class);
+        
+        // Determinar tipo de milestone
+        if (str_contains($message, 'likes')) {
+            $type = 'likes';
+            $value = $this->likes_count;
+        } elseif (str_contains($message, 'comentarios')) {
+            $type = 'comments';
+            $value = $this->comments_count;
+        } else {
+            $type = 'views';
+            $value = $this->views_count;
+        }
+        
+        $webhookService->postMilestone($this, $type, $value);
+    }
 }
