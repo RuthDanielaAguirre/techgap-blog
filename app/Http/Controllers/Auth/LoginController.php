@@ -30,7 +30,7 @@ class LoginController extends Controller
 
             // Redirigir según el rol
             if ($user->isAdmin() || $user->isWriter()) {
-                return redirect()->intended('/admin');
+                return redirect()->intended('/dashboard');
             }
 
             return redirect()->intended('/');

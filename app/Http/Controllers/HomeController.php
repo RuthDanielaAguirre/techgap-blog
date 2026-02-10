@@ -20,7 +20,8 @@ class HomeController extends Controller
         $latestPosts = Post::published()
             ->with(['user', 'category', 'tags'])
             ->latest('published_at')
-            ->paginate(9);
+            ->take(4)
+            ->get();
 
         $popularPosts = Post::published()
             ->with(['user', 'category'])
@@ -34,21 +35,30 @@ class HomeController extends Controller
             }])
             ->get();
 
-        return view('pages.blogView.home', compact(
+        return view('blog.home', compact(
             'featuredPosts',
             'latestPosts',
             'popularPosts',
             'categories'
         ));
+
+        // return view('pages.blogView.home', compact(
+        //     'featuredPosts',
+        //     'latestPosts',
+        //     'popularPosts',
+        //     'categories'
+        // ));
     }
 
     public function contact()
     {
-        return view('pages.blogView.contact');
+        return view('blog.contact');
+        // return view('pages.blogView.contact');
     }
 
     public function about()
     {
-        return view('pages.blogView.about');
+        return view('blog.about');
+        // return view('pages.blogView.about');
     }
 }

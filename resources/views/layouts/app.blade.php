@@ -16,36 +16,50 @@
     
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="antialiased bg-gray-50">
-    @include('partials.header')
 
-    <!-- Flash Messages -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="antialiased bg-gray-50 min-h-screen flex flex-col">
+    @include('layouts.header')
+
+    {{-- Toast flotante --}}
     @if(session('success'))
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg" x-data="{ show: true }" x-show="show">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="text-green-800 font-medium">{{ session('success') }}</p>
-                    </div>
-                    <button @click="show = false" class="text-green-500 hover:text-green-700">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
+    <div 
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 3500)"
+        x-show="show"
+        x-transition.opacity.duration.300ms
+        class="fixed top-20 right-6 z-9999 max-w-sm w-full"
+    >
+        <div class="bg-white border border-slate-200 rounded-xl shadow-xl p-4 flex items-start space-x-3">
+
+            {{-- Icono --}}
+            <div class="text-green-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 13l4 4L19 7" />
+                </svg>
             </div>
+
+            {{-- Mensaje --}}
+            <div class="flex-1 text-sm text-slate-700">
+                {{ session('success') }}
+            </div>
+
+            {{-- Cerrar --}}
+            <button @click="show = false" class="text-slate-400 hover:text-slate-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
+    </div>
     @endif
 
-    <!-- Main Content -->
-    <main>
-        @yield('content')
-    </main>
+    <main class="grow"> @yield('content') </main>
 
-    @include('partials.footer')
+    @include('layouts.footer')
 </body>
 </html>

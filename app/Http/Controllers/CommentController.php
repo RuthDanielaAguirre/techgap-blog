@@ -33,6 +33,24 @@ class CommentController extends Controller
         return back()->with('success', 'Comentario publicado correctamente.');
     }
 
+    public function update(Request $request, Comment $comment)
+    {
+        // Verificar permisos
+        if (!$comment->canBeEditedBy(auth()->user())) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'content' => ['required', 'string', 'max:2000'],
+        ]);
+
+        $comment->update([
+            'content' => $validated['content'],
+        ]);
+
+        return back()->with('success', 'Comentario actualizado correctamente.');
+    }
+
     public function destroy(Comment $comment)
     {
         if (!$comment->canBeEditedBy(auth()->user())) {

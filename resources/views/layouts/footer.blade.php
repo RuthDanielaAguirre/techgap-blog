@@ -1,13 +1,12 @@
 <!-- Footer -->
-<footer class="bg-gray-900 text-gray-300 mt-20">
+<footer class="text-gray-300" style="background:#020617">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- About -->
             <div class="md:col-span-2">
-                <div class="flex items-center space-x-2 mb-4">
-                    <div class="w-10 h-10 bg-gradient-to-br from-techgap-500 to-techgap-700 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-xl">TG</span>
-                    </div>
+                <div class="flex items-center space-x-1 mb-4">
+                    <img src="{{ asset('images/logo-dark.png') }}" alt="TechGap" class="w-12 h-12 object-contain">
+
                     <span class="text-2xl font-bold text-white">TechGap</span>
                 </div>
                 <p class="text-gray-400 mb-4">
