@@ -131,31 +131,77 @@
 
                         <!-- RIGHT SIDE: ACTION BUTTONS -->
                         <div class="flex items-center space-x-3">
-                            <!-- LIKE -->
-                            <button class="flex items-center space-x-1 px-3 py-1.5 rounded-lg border border-gray-300 bg-white 
+                            @auth
+                                {{-- LIKE --}}
+                                <form action="{{ route('posts.like.toggle', $post) }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                        class="flex items-center space-x-1 px-3 py-1.5 rounded-lg border border-gray-300 bg-white 
+                                            hover:bg-red-50 hover:border-red-300 transition">
+
+                                        <svg class="w-5 h-5 transition text-gray-600"
+                                            fill="{{ $post->isLikedBy(auth()->user()) ? '#ef4444' : 'none' }}" 
+                                            stroke="#ef4444" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+
+                                        <span class="text-xs font-medium text-gray-700">
+                                            {{ $post->likes_count }}
+                                        </span>
+                                    </button>
+                                </form>
+
+                                {{-- SAVE / BOOKMARK --}}
+                                <form action="{{ route('posts.bookmark.toggle', $post) }}" method="POST">
+                                    @csrf
+                                    <form action="{{ route('posts.bookmark.toggle', $post) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="p-2 rounded-lg border border-gray-300 bg-white 
+                                                hover:bg-yellow-50 hover:border-yellow-300 transition">
+
+                                            <svg class="w-5 h-5 transition text-gray-600"
+                                                fill="{{ $post->isBookmarkedBy(auth()->user()) ? '#facc15' : 'none' }}" 
+                                                stroke="#facc15" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                            </svg>
+
+                                        </button>
+                                    </form>
+                                </form>
+                            @else
+                                {{-- LIKE (guest) --}}
+                                <a href="{{ route('login') }}"
+                                    class="flex items-center space-x-1 px-3 py-1.5 rounded-lg border border-gray-300 bg-white 
                                         hover:bg-red-50 hover:border-red-300 transition">
-                                <svg class="w-5 h-5 text-gray-600 group-hover:text-red-500 transition" 
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                </svg>
-                                <span class="text-xs font-medium text-gray-700">123</span>
-                            </button>
+                                    <svg class="w-5 h-5 text-gray-600 group-hover:text-red-500 transition"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                    <span class="text-xs font-medium text-gray-700">{{ $post->likes_count }}</span>
+                                </a>
 
-                            <!-- SAVE -->
-                            <button class="p-2 rounded-lg border border-gray-300 bg-white 
+                                {{-- SAVE (guest) --}}
+                                <a href="{{ route('login') }}"
+                                    class="p-2 rounded-lg border border-gray-300 bg-white 
                                         hover:bg-yellow-50 hover:border-yellow-300 transition">
-                                <svg class="w-5 h-5 text-gray-600 group-hover:text-yellow-600 transition" 
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-                                </svg>
-                            </button>
+                                    <svg class="w-5 h-5 text-gray-600 group-hover:text-yellow-600 transition"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </a>
+                            @endauth
 
-                            <!-- SHARE -->
-                            <button class="p-2 rounded-lg border border-gray-300 bg-white 
-                                        hover:bg-green-50 hover:border-green-300 transition">
-                                <svg class="w-5 h-5 text-gray-600 group-hover:text-green-600 transition" fill="none" stroke="currentColor"  viewBox="0 0 24 24">
+                            {{-- SHARE --}}
+                            <button onclick="sharePost()"
+                                class="p-2 rounded-lg border border-gray-300 bg-white 
+                                    hover:bg-green-50 hover:border-green-300 transition">
+                                <svg class="w-5 h-5 text-gray-600 group-hover:text-green-600 transition"
+                                    fill="none" stroke="#22c55e" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
                                 </svg>
@@ -379,4 +425,20 @@
         </div>
     @endif
 </div>
+
+<script>
+function sharePost() {
+    if (navigator.share) {
+        navigator.share({
+            title: '{{ $post->title }}',
+            text: '{{ $post->excerpt }}',
+            url: '{{ route('posts.show', $post->slug) }}'
+        });
+    } else {
+        // Fallback: copiar URL
+        navigator.clipboard.writeText('{{ route('posts.show', $post->slug) }}');
+        alert('¡URL copiada al portapapeles!');
+    }
+}
+</script>
 @endsection

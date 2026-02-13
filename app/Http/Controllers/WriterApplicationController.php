@@ -29,7 +29,7 @@ class WriterApplicationController extends Controller
                 ->with('info', 'Ya has enviado una solicitud anteriormente.');
         }
 
-        return view('writer-applications.create');
+        return view('writer-applications.create2');
     }
 
     public function store(Request $request)

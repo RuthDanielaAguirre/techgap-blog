@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Http;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Auth Routes
 Route::middleware('guest')->group(function () {
@@ -25,7 +26,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
     Route::get('/author/{user:username}', [AuthorController::class, 'show'])->name('author.show');
 });
 

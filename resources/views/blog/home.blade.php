@@ -278,7 +278,7 @@
 
             @auth
                 @if(auth()->user()->isSubscriber())
-                    <a href="#"
+                    <a href="{{ route('writer-applications.create') }}"
                        class="inline-block px-6 py-3 rounded-xl font-medium text-sm transition
                               bg-white/10 text-gray-200 border border-white/20
                               hover:bg-white/20 hover:border-white/30 hover:text-white">
